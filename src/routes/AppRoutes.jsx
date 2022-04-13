@@ -1,6 +1,6 @@
-import { Fragment } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/navbar/Navbar";
+import Sidebar from "../components/sidebar/Sidebar";
 import Create from "../pages/create/Create";
 import Dashboard from "../pages/dashboard/Dashboard";
 import Login from "../pages/login/Login";
@@ -10,8 +10,9 @@ import Signup from "../pages/signup/Signup";
 const AppRoutes = () => {
   return (
     <Router>
+    <Sidebar/>
       <div className="container">
-        <Navbar />
+        <Navbar/>
         <Switch>
           <Route exact path="/">
             <Dashboard />
