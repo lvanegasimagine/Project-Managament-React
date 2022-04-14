@@ -20,7 +20,7 @@ const AppRoutes = () => {
     <>
       {authIsReady && (
         <Router>
-          <Sidebar />
+          { user && <Sidebar /> }
           <div className="container">
             <Navbar />
             <Switch>
