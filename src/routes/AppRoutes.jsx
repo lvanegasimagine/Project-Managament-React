@@ -13,6 +13,7 @@ import Dashboard from "../pages/dashboard/Dashboard";
 import Login from "../pages/login/Login";
 import Project from "../pages/project/Project";
 import Signup from "../pages/signup/Signup";
+import OnlineUsers from "../components/user/OnlineUsers";
 
 const AppRoutes = () => {
   const { user, authIsReady } = useAuthContext();
@@ -46,6 +47,7 @@ const AppRoutes = () => {
               </Route>
             </Switch>
           </div>
+          {user && <OnlineUsers/>}
         </Router>
       )}
     </>
