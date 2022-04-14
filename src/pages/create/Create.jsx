@@ -19,6 +19,8 @@ const Create = () => {
   const [category, setCategory] = useState("");
   const [assignedUsers, setAssignedUsers] = useState([]);
 
+  const [formError, setFormError] = useState(null);
+
   useEffect(() => {
     if(documents){
       const options = documents.map(user => (
@@ -31,12 +33,21 @@ const Create = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(!category){
+      setFormError("Please select a category");
+      return;
+    }
+    if(assignedUsers.length < 1){
+      setFormError("Please select at least one user");
+      return;
+    }
     console.log(name, details, dueDate, category, assignedUsers);
   }
   return (
     <div className="create-form">
       <h2 className="page-title">Create a New Project</h2>
       <form onSubmit={handleSubmit}>
+      {formError && <p className="error">{formError}</p>}
         <label htmlFor="name">
           <span>Project Name: </span>
           <input
@@ -69,11 +80,11 @@ const Create = () => {
         </label>
         <label htmlFor="Category">
           <span>Project Category: </span>
-          <Select options={categories} onChange={(option) => setCategory(option.value)} />
+          <Select options={categories} onChange={(option) => setCategory(option.value)} required/>
         </label>
         <label htmlFor="Category">
           <span>Assign to: </span>
-          <Select options={users} onChange={(option) => setAssignedUsers(option)} isMulti />
+          <Select options={users} onChange={(option) => setAssignedUsers(option)} isMulti required/>
         </label>
         <button className="btn">Add Project</button>
       </form>
