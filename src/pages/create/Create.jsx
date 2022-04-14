@@ -1,7 +1,12 @@
+import "./Create.css";
+
 import { useState, useEffect } from "react";
 import Select from "react-select";
+import { timestamp } from "../../firebase/config";
 import { useCollection } from "../../hooks/useCollection";
-import "./Create.css";
+import { useAuthContext } from "../../hooks/useAuthContext";
+import { useFirestore } from "../../hooks/useFirestore";
+import { useHistory } from "react-router-dom";
 
 const categories = [
   { value: 'development', label: 'Development' },
@@ -10,8 +15,12 @@ const categories = [
   { value: 'sales', label: 'Sales' },
 ]
 const Create = () => {
-  const {documents} = useCollection('users');
+  const history = useHistory();
+  const { addDocument, response } = useFirestore('projects');
+  const { documents } = useCollection('users');
   const [users, setUsers] = useState([]);
+
+  const { user } = useAuthContext();
 
   const [name, setName] = useState("");
   const [details, setDetails] = useState("");
@@ -31,7 +40,7 @@ const Create = () => {
   }, [documents])
   
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if(!category){
       setFormError("Please select a category");
@@ -41,7 +50,39 @@ const Create = () => {
       setFormError("Please select at least one user");
       return;
     }
-    console.log(name, details, dueDate, category, assignedUsers);
+
+    const createdBy = {
+      displayName: user.displayName,
+      photoURL: user.photoURL,
+      id: user.uid
+    }
+
+    const assignedUsersList = assignedUsers.map((user) => ((
+      { displayName: user.value.displayName, photoURL: user.value.photoURL, id: user.value.id }
+    )))
+
+    console.log(category);
+
+    const project = {
+      name,
+      details,
+      category: category,
+      dueDate: timestamp.fromDate(new Date(dueDate)),
+      comments: [],
+      createdBy,
+      assignedUsersList
+    }
+
+    console.log(project);
+    
+    await addDocument(project);
+
+    console.log(response);
+
+    // if(!response.error){
+    //   console.log(response.error);
+    // //     history.push('/');
+    // }
   }
   return (
     <div className="create-form">
