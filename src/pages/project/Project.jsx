@@ -1,7 +1,8 @@
-import './Project.css'
+import './Project.css';
+
 const Project = () => {
   return (
-    <div>Project</div>
+    <div>Project Details</div>
   )
 }
 
