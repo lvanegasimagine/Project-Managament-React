@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useDocument } from '../../hooks/useDocument';
 import ProjectSummary from './ProjectSummary/ProjectSummary';
 import './Project.css';
+import ProjectComment from './ProjectComments/ProjectComment';
 
 const Project = () => {
 
@@ -20,6 +21,7 @@ const Project = () => {
   return (
     <div className='project-details'>
       <ProjectSummary project={document}/>
+      <ProjectComment/>
     </div>
   )
 }
