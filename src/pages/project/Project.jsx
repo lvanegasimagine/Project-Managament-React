@@ -17,7 +17,6 @@ const Project = () => {
     return <div className='loading'>Loading...</div>
   }
 
-
   return (
     <div className='project-details'>
       <ProjectSummary project={document}/>
