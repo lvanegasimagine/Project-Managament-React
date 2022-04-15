@@ -10,8 +10,12 @@ export const useDocument = (collection, id) => {
       const ref = projectFirestore.collection(collection).doc(id);
 
       const unsubscribe = ref.onSnapshot((snapshot) =>{
-          setDocument({...snapshot.data(), id: snapshot.id});
-          setError(null);
+          if(snapshot.data()){
+              setDocument({...snapshot.data(), id: snapshot.id});
+              setError(null);
+          } else{
+              setError('Document not found');
+          }
       }, (err) =>{
           setError('Failed to get Document', err);
       })
