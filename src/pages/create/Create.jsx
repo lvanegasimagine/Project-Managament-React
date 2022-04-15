@@ -72,17 +72,12 @@ const Create = () => {
       createdBy,
       assignedUsersList
     }
-
-    console.log(project);
     
     await addDocument(project);
 
-    console.log(response);
-
-    // if(!response.error){
-    //   console.log(response.error);
-    // //     history.push('/');
-    // }
+    if(!response.error){
+        history.push('/');
+    }
   }
   return (
     <div className="create-form">

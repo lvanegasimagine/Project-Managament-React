@@ -39,7 +39,6 @@ export const useFirestore = (collection) => {
 
   // add a document
   const addDocument = async (doc) => {
-    console.log('useFirstore',doc);
     dispatch({ type: 'IS_PENDING' })
 
     try {
