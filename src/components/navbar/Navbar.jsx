@@ -11,10 +11,10 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <ul>
-        <li className="logo">
-          <img src={Temple} alt="Dojo Logo" />
-          <span>The Dojo</span>
-        </li>
+        <Link to='/' className="logo">
+              <img src={Temple} alt="Dojo Logo" />
+              <span>The Dojo</span>
+        </Link>
         {!user && (
           <>
             <li>
